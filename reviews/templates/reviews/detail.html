@@ -9,4 +9,6 @@
   <hr>
   <p>{{ review.content }}</p>
 
+  <a href="{% url 'reviews:update' review.pk %}">수정</a>
+
 {% endblock %}
