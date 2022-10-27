@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
 {% block content %}
-  <p>작성자 {{ review.user }}|
+  <p>작성자
+    {{ review.user }}|
     {{ review.created_at }}</p>
   <p>
     {{ review.title }}
@@ -10,8 +12,21 @@
   <p>{{ review.content }}</p>
   <a class="btn btn-primary" href="{% url 'reviews:likes' review.pk %}">쪼아요</a>
 
-
   <a href="{% url 'reviews:update' review.pk %}">수정</a>
   <a href="{% url 'reviews:delete' review.pk %}">삭제</a>
+
+  <hr>
+  <!-- 댓글 -->
+  {% for comment in review.comment_set.all %}
+    <p>
+      {{ comment.user }}|{{ comment.content }}
+    </p>
+  {% endfor %}
+  <!-- 댓글 작성폼 -->
+  <form action="{% url 'reviews:comments' review.pk %}" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form forms %}
+    <input type="submit" value="작성">
+  </form>
 
 {% endblock %}

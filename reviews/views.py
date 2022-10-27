@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from reviews.foms import ReviewForm
+from reviews.foms import ReviewForm, CommentForm
 from .models import Review
 from django.http import HttpResponseForbidden
 
@@ -31,13 +31,13 @@ def create(request):
 
 def detail(request, review_pk):
     review = Review.objects.get(pk=review_pk)
-    return render(
-        request,
-        "reviews/detail.html",
-        {
+    forms = CommentForm()
+    context = {
             "review": review,
-        },
-    )
+            "forms" : forms,
+        }
+    return render(request, "reviews/detail.html", context)
+
 
 
 def update(request, review_pk):
@@ -73,3 +73,14 @@ def likes(request, review_pk):
         return redirect("reviews:detail", review_pk)
     else:
         return HttpResponseForbidden()
+
+
+def comments(request, review_pk):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            forms = CommentForm(request.POST)
+            if forms.is_valid():
+                comment = forms.save(commit=False)
+                comment.user = request.user
+                comment.save()
+                return redirect("reviews:detail", review_pk)
