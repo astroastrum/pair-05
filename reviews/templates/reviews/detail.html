@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+  <p>작성자 |
+    {{ review.created_at }}</p>
+  <p>
+    {{ review.title }}
+  </p>
+  <p>{{ review.subtitle }}</p>
+  <hr>
+  <p>{{ review.content }}</p>
+
+{% endblock %}
