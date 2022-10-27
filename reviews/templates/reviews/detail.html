@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-  <p>작성자 |
+  <p>작성자 {{ review.user }}|
     {{ review.created_at }}</p>
   <p>
     {{ review.title }}
@@ -8,6 +8,8 @@
   <p>{{ review.subtitle }}</p>
   <hr>
   <p>{{ review.content }}</p>
+  <a class="btn btn-primary" href="{% url 'reviews:likes' review.pk %}">쪼아요</a>
+
 
   <a href="{% url 'reviews:update' review.pk %}">수정</a>
   <a href="{% url 'reviews:delete' review.pk %}">삭제</a>

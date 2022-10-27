@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from reviews.foms import ReviewForm
 from .models import Review
-
+from django.http import HttpResponseForbidden
 
 # Create your views here.
 def main(request):
@@ -60,3 +60,16 @@ def delete(request, review_pk):
     review = Review.objects.get(pk=review_pk)
     review.delete()
     return redirect("reviews:index")
+
+
+def likes(request, review_pk):
+    if request.user.is_authenticated:
+        review = Review.objects.get(pk=review_pk)
+
+        if review.like_user.filter().exists():
+            review.like_user.remove(request.user)
+        else:
+            review.like_user.add(request.user)
+        return redirect("reviews:detail", review_pk)
+    else:
+        return HttpResponseForbidden()
