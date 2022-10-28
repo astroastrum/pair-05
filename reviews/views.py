@@ -22,7 +22,9 @@ def create(request):
     if request.method == "POST":
         forms = ReviewForm(request.POST)
         if forms.is_valid():
-            forms.save()
+            review = forms.save(commit=False)
+            review.user = request.user
+            review.save()
             return redirect("reviews:index")
 
     else:
@@ -96,11 +98,13 @@ def search(request):
 
 @login_required
 def comments(request, review_pk):
+    review = Review.objects.get(pk=review_pk)
     if request.method == "POST":
         if request.user.is_authenticated:
             forms = CommentForm(request.POST)
             if forms.is_valid():
                 comment = forms.save(commit=False)
+                comment.review = review
                 comment.user = request.user
                 comment.save()
                 return redirect("reviews:detail", review_pk)

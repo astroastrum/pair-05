@@ -13,8 +13,8 @@ def signup(request):
     if request.method == "POST":
         forms = SignupForm(request.POST, request.FILES)
         if forms.is_valid():
-            forms.save()
-            auth_login(request, forms.get_user())
+            user = forms.save()
+            auth_login(request, user)
             return redirect("reviews:index")
     else:
         forms = SignupForm()
@@ -46,6 +46,7 @@ def logout(request):
     messages.warning(request, "로그아웃 되었습니다")
     return redirect("reviews:index")
 
+
 @login_required
 def follow(request, user_pk):
     person = get_user_model().objects.get(pk=user_pk)
@@ -57,11 +58,12 @@ def follow(request, user_pk):
         return redirect("accounts:detail", user_pk)
     else:
         return HttpResponseForbidden()
-        
+
+
 def detail(request, user_pk):
     person = get_user_model()
     person = get_object_or_404(person, pk=user_pk)
     context = {
-        "person" : person,
+        "person": person,
     }
     return render(request, "accounts/detail.html", context)
