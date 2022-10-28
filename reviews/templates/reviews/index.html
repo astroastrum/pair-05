@@ -15,9 +15,9 @@
   <hr>
   <!-- 카드 -->
   <div class="card m-3 container mx-auto border-0">
+    {% for rev in review %}
     <div class="row g-0">
       <div class="col-md-4 d-flex justify-content-center p-5">
-        {% for rev in review %}
         {% if rev.image %}
         <img src="{{ review.image.url }}" class="img-fluid rounded-start" alt="...">
         {% else %}
@@ -42,8 +42,8 @@
           </div>
         </div>
         <hr>
-      {% endfor %}
-    </div>
+        {% endfor %}
+      </div>
   </div>
 
 {% endblock content %}

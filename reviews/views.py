@@ -1,7 +1,6 @@
-from xml.etree.ElementTree import Comment
 from django.shortcuts import redirect, render, get_object_or_404
 from reviews.forms import ReviewForm, CommentForm
-from .models import Review
+from .models import Review, Comment
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -114,7 +113,8 @@ def comments(request, review_pk):
 def comments_delete(request, review_pk, comment_pk):
     if request.method == "POST":
         # 댓글 작성자만 삭제 가능
-        comment = get_object_or_404(Comment, pk=comment_pk)
+        review = get_object_or_404(Review, pk=review_pk)
+        comment = review.comment_set.all().get(pk=comment_pk)
         if request.user == comment.user:
             comment.delete()
     # GET으로 요청했을 경우 반응 없게
