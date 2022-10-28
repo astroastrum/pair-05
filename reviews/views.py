@@ -98,7 +98,7 @@ def search(request):
 
 @login_required
 def comments(request, review_pk):
-    review = Review.objects.get(pk=review_pk)
+    review = get_object_or_404(Review, pk=review_pk)
     if request.method == "POST":
         if request.user.is_authenticated:
             forms = CommentForm(request.POST)
