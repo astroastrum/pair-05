@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from reviews.foms import ReviewForm, CommentForm
+from reviews.forms import ReviewForm, CommentForm
 from .models import Review
 from django.http import HttpResponseForbidden
 
@@ -33,11 +33,10 @@ def detail(request, review_pk):
     review = Review.objects.get(pk=review_pk)
     forms = CommentForm()
     context = {
-            "review": review,
-            "forms" : forms,
-        }
+        "review": review,
+        "forms": forms,
+    }
     return render(request, "reviews/detail.html", context)
-
 
 
 def update(request, review_pk):
