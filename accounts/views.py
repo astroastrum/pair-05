@@ -11,9 +11,10 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 def signup(request):
     if request.method == "POST":
-        forms = SignupForm(request.POST)
+        forms = SignupForm(request.POST, request.FILES)
         if forms.is_valid():
             forms.save()
+            auth_login(request, forms.get_user())
             return redirect("reviews:index")
     else:
         forms = SignupForm()
