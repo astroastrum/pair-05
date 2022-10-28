@@ -1,4 +1,57 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% static %}
 {% block content %}
   <h1>정상작동</h1>
+  <section class="main">
+    <div class="jumbtron">
+      <div class="container">
+        <h1>CineMega</h1>
+        <p>Review</p>
+        <p>
+          <a class="btn btn-primary btn-lg" href="#" role="button">More Review</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static 'social_mov.jpg' %}" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Social Network</h5>
+          <p>코딩밖에 모르는 너드(Nerd) 마크 주커버그
+          </p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'steve_mov.jpg' %}" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Stebe Jobs</h5>
+          <p>2016년 혁신적 영감을 선사할 최고의 영화!</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="{% static '겨울왕국.jpg' %}" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>겨울왕국</h5>
+          <p>얼어붙은 세상을 녹일 자매가 온다!</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
 {% endblock content %}
