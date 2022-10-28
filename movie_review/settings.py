@@ -29,6 +29,8 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+MEDIA_ROOT = BASE_DIR / 'images'
+MEDIA_URL = '/image/'
 
 INSTALLED_APPS = [
     "accounts",
