@@ -27,7 +27,7 @@
               <a class="nav-link active" aria-current="page" href="#">HOME</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'articles:create' %}">REVIEWS</a>
+              <a class="nav-link" href="{% url 'reviews:create' %}">REVIEWS</a>
             </li>
           </ul>
         </div>
@@ -35,11 +35,12 @@
           <div class="d-flex">
             <a class="nav-link active" href="{% url 'accounts:logout' %}">{{ user.username}}
               LOGOUT
-            </a>/
-            <a class="nav-link active" href="{% url 'accounts:detail' user.pk %}">MYPAGE</a>
+            </a>
+            /
+            <a class="nav-link active" href="{% url 'accounts:index' %}">MYPAGE</a>
           </div>
         {% else %}
-          <a class="nav-link active" href="{% url 'accoutns:login' %}">LOGIN</a>
+          <a class="nav-link active" href="{% url 'accounts:login' %}">LOGIN</a>
           |
           <a class="nav-link active" href="{% url 'accounts:signup'%}">SIGNUP<a>
             {% endif %}
