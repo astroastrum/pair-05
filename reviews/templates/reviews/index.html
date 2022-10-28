@@ -1,27 +1,47 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
 {% load static %}
+
+{% block active %}
+  <li class="nav-item">
+    <a class="nav-link navi navi-active" aria-current="page" href="{% url 'reviews:index' %}">HOME</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link navi" href="{% url 'reviews:create' %}">NEW REVIEW</a>
+  </li>
+{% endblock active %}
 {% block content %}
-  <h1 class="m-3">Review</h1>
-  <div class="card m-3" style="max-width: 540px;">
+  <h1 class="m-3 fw-bold">Review</h1>
+  <hr>
+  <!-- 카드 -->
+  <div class="card m-3 container mx-auto border-0">
     <div class="row g-0">
-      <div class="col-md-4">
-        <img src="..." class="img-fluid rounded-start" alt="...">
+      <div class="col-md-4 d-flex justify-content-center p-5">
+        {% for rev in review %}
+        {% if rev.image %}
+        <img src="{{ review.image.url }}" class="img-fluid rounded-start" alt="...">
+        {% else %}
+        <img src="https://dummyimage.com/200/dedbdc/8084c2" alt="">
+        {% endif %}
       </div>
-      {% for rev in review %}
         <div class="col-md-8">
-          <div class="card-body">
+          <div class="card-body p-5">
+            <div class="d-flex">
+              <p class="fw-bold text-muted fs-5">{{ rev.user }} | </p>
+              <p class="fw-bold text-muted ms-2 fs-5">{{ rev.created_at }}</p>
+            </div>
             <a href="{% url 'reviews:detail' rev.pk %}" class="text-decoration-none">
-              <h5 class="card-title">
+              <h3 class="card-title fw-bold text-decoration-none text-black">
                 {{ rev.title }}
-              </h5>
+              </h3>
             </a>
-            <p class="card-text">{{ rev.subtitle }}</p>
+            <p class="card-text fs-4">{{ rev.subtitle }}</p>
             <p class="card-text">
               <small class="text-muted">{{ rev.created_at}}</small>
             </p>
           </div>
         </div>
+        <hr>
       {% endfor %}
     </div>
   </div>
