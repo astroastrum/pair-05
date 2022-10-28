@@ -5,6 +5,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def signup(request):
@@ -44,6 +45,7 @@ def logout(request):
     return redirect("reviews:index")
 
 
+@login_required
 def follow(request, user_pk):
     person = get_user_model().objects.get(pk=user_pk)
     if person != request.user:
@@ -52,5 +54,3 @@ def follow(request, user_pk):
         else:
             person.followers.add(request.user)
         return redirect("accounts:detail", user_pk)
-
- 

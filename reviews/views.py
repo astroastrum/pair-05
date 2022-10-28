@@ -16,6 +16,7 @@ def index(request):
     return render(request, "reviews/index.html", context)
 
 
+@login_required
 def create(request):
     if request.method == "POST":
         forms = ReviewForm(request.POST)
@@ -41,6 +42,7 @@ def detail(request, review_pk):
     return render(request, "reviews/detail.html", context)
 
 
+@login_required
 def update(request, review_pk):
     review = Review.objects.get(pk=review_pk)
     if request.method == "POST":
@@ -57,6 +59,7 @@ def update(request, review_pk):
     return render(request, "reviews/update.html", context)
 
 
+@login_required
 def delete(request, review_pk):
     review = Review.objects.get(pk=review_pk)
     review.delete()
@@ -76,6 +79,7 @@ def likes(request, review_pk):
         return HttpResponseForbidden()
 
 
+@login_required
 def comments(request, review_pk):
     if request.method == "POST":
         if request.user.is_authenticated:
@@ -85,12 +89,14 @@ def comments(request, review_pk):
                 comment.user = request.user
                 comment.save()
                 return redirect("reviews:detail", review_pk)
+
+
 @login_required
 def comments_delete(request, review_pk, comment_pk):
     if request.method == "POST":
-    # 댓글 작성자만 삭제 가능
+        # 댓글 작성자만 삭제 가능
         comment = get_object_or_404(Comment, pk=comment_pk)
-        if request.user == comment.user :
+        if request.user == comment.user:
             comment.delete()
     # GET으로 요청했을 경우 반응 없게
     return redirect("reviews:detail", review_pk)
