@@ -41,7 +41,7 @@ def login(request):
 def logout(request):
     auth_logout(request)
     messages.warning(request, "로그아웃 되었습니다")
-    return redirect("accounts:index")
+    return redirect("reviews:index")
 
 
 def follow(request, user_pk):
@@ -52,3 +52,5 @@ def follow(request, user_pk):
         else:
             person.followers.add(request.user)
         return redirect("accounts:detail", user_pk)
+
+ 
