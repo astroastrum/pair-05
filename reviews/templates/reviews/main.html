@@ -1,57 +1,50 @@
-{% extends 'base.html' %}
-{% load django_bootstrap5 %}
-{% static %}
-{% block content %}
-  <h1>정상작동</h1>
-  <section class="main">
-    <div class="jumbtron">
-      <div class="container">
-        <h1>CineMega</h1>
-        <p>Review</p>
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/mainstyle.css' %}">
+  </head>
+
+  <body>
+    <!-- Ref https://www.reddit.com/r/javascript/comments/dolagh/apple_airpods_pro_page_uses_a_lot_of_images_so_i/ -->
+    <section>
+      <video id="video" playsinline="playsinline" poster="https://assets.nflxext.com/ffe/siteui/vlv3/9737377e-a430-4d13-ad6c-874c54837c49/945eec79-6856-4d95-b4c6-83ff5292f33d/KR-ko-20220111-popsignuptwoweeks-perspective_alpha_website_large.jpg">
+        <source src="https://assets.nflxext.com/ffe/siteui/vlv3/9737377e-a430-4d13-ad6c-874c54837c49/945eec79-6856-4d95-b4c6-83ff5292f33d/KR-ko-20220111-popsignuptwoweeks-perspective_alpha_website_large.jpg" type="jpg">
+        Your browser does not support the video tag.
+      </video>
+      <div class="scroll-dummy">
+        <h1>영화 리뷰 보고싶나여?</h1>
+        <a href="{% url 'reviews:index' %}">리뷰 보기</a>
         <p>
-          <a class="btn btn-primary btn-lg" href="#" role="button">More Review</a>
+          우리는 예지, 정아, 유영을 가졌습니다 👍
         </p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="{% static 'social_mov.jpg' %}" class="d-block w-100" alt="...">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Social Network</h5>
-          <p>코딩밖에 모르는 너드(Nerd) 마크 주커버그
-          </p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="{% static 'steve_mov.jpg' %}" class="d-block w-100" alt="...">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Stebe Jobs</h5>
-          <p>2016년 혁신적 영감을 선사할 최고의 영화!</p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="{% static '겨울왕국.jpg' %}" class="d-block w-100" alt="...">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>겨울왕국</h5>
-          <p>얼어붙은 세상을 녹일 자매가 온다!</p>
-        </div>
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-{% endblock content %}
+    <script>
+      var FRAMES = 148;
+      var FPS = 30;
+      var video = document.getElementById('video');
+
+      window.addEventListener('scroll', function (e) {
+        var time = (window.scrollY / 1000) * FRAMES / FPS;
+        video.currentTime = time;
+        console.log(time);
+        // alert('Hizo scroll')
+      });
+
+      window.addEventListener('load', function (e) {
+        video.pause();
+        video.currentTime = 0;
+      });
+    </script>
+  </body>
+
+</html>
