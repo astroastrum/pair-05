@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+
+  <h3 class="m-3 text-center">회원 목록</h3>
+  <hr>
+  <div class="container m-5">
+    {% if request.user.is_authenticated %}
+      <table class="table">
+        <thead>
+          <th>ID</th>
+          <th>이름</th>
+          <th>follower</th>
+          <th>following</th>
+          <th>email</th>
+
+        </thead>
+        <tbody>
+          {% for user in members %}
+            <tr>
+              <td>{{ user.id }}</td>
+              <td>
+                <a href="{% url 'accounts:detail' user.pk %}">{{ user }}</a>
+              </td>
+              <td>following:
+                {{ user.followings.all|length}}
+
+              </td>
+              <td>
+                follower:
+                {{ user.followings.all|length}}
+              </td>
+              <td>
+                {{ user.email }}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+  </div>
+
+{% endblock content %}
