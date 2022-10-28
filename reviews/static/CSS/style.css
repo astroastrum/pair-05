@@ -1,0 +1,19 @@
+.navi {
+    font-size: 20px;
+    font-weight: bold;
+    color : #aababd;
+}
+.navi:hover {
+    color : #4a5759;
+}
+/* 활성화된 네브바아이템 */
+.navi-active {
+    color : #4a5759;
+    font-weight: bold;
+}
+.search-hidden{
+    display: none;
+}
+.search-active {
+    display: inline;
+}
