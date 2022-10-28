@@ -35,4 +35,4 @@ def login(request):
 def logout(request):
     auth_logout(request)
     messages.warning(request, "로그아웃 되었습니다")
-    return redirect("accounts:index")
+    return redirect("reviews:index")

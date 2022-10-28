@@ -18,9 +18,19 @@
   <hr>
   <!-- 댓글 -->
   {% for comment in review.comment_set.all %}
-    <p>
-      {{ comment.user }}|{{ comment.content }}
-    </p>
+    <!-- 댓글 작성자만 삭제버튼 보이게하기 -->
+    <div class="d-flex justify-content-between px-3">
+      <p>
+        {{ comment.user }}|{{ comment.content }}
+      </p>
+      {% if request.user == comment.user %}
+        <span>
+          <form action="{% url 'reviews:comment_delete' review.pk comment.pk %}" method="POST">
+            <input type="submit" value="삭제" class="btn btn-outline-danger">
+          </form>
+        </span>
+      {% endif %}
+    </div>
   {% endfor %}
   <!-- 댓글 작성폼 -->
   <form action="{% url 'reviews:comments' review.pk %}" method="POST">

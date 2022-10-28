@@ -8,15 +8,19 @@
         <img src="..." class="img-fluid rounded-start" alt="...">
       </div>
       {% for rev in review %}
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 class="card-title">{{ rev.title }}</h5>
-          <p class="card-text">{{ rev.subtitle }}</p>
-          <p class="card-text">
-            <small class="text-muted">{{ rev.created_at}}</small>
-          </p>
+        <div class="col-md-8">
+          <div class="card-body">
+            <a href="{% url 'reviews:detail' rev.pk %}" class="text-decoration-none">
+              <h5 class="card-title">
+                {{ rev.title }}
+              </h5>
+            </a>
+            <p class="card-text">{{ rev.subtitle }}</p>
+            <p class="card-text">
+              <small class="text-muted">{{ rev.created_at}}</small>
+            </p>
+          </div>
         </div>
-      </div>
       {% endfor %}
     </div>
   </div>
