@@ -4,6 +4,7 @@ from reviews.forms import ReviewForm, CommentForm
 from .models import Review
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 # Create your views here.
 def main(request):
@@ -77,6 +78,20 @@ def likes(request, review_pk):
         return redirect("reviews:detail", review_pk)
     else:
         return HttpResponseForbidden()
+
+
+def search(request):
+    if request.method == "GET":
+        content_list = Review.objects.all()
+        search = request.GET.get("search", "")
+
+        if search:
+            search_list = content_list.filter(
+                Q(title__icontains=search)
+                | Q(content__icontains=search)
+                | Q(subtitle__icontains=search)
+            )
+            return render(request, "reviews/search.html", {"search": search_list})
 
 
 @login_required
