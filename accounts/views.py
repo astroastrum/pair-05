@@ -57,7 +57,6 @@ def follow(request, user_pk):
     else:
         return HttpResponseForbidden()
         
-    
 def detail(request, user_pk):
     person = get_user_model()
     person = get_object_or_404(person, pk=user_pk)
@@ -65,5 +64,3 @@ def detail(request, user_pk):
         "person" : person,
     }
     return render(request, "accounts/detail.html", context)
-
- 
