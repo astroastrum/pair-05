@@ -10,52 +10,79 @@
     <title>Document</title>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static '/CSS/style.css' %}">
   </head>
 
   <body>
     <!--네브바-->
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav class="navbar navbar-expand-lg bg-light px-3">
       <div class="container-fluid">
         <!--로고-->
-        <a class="navbar-brand" href="#"><img src="{% static 'images/movie.png'%}" style="width: 100px; height:50px;" alt=""></a>
+        <a class="navbar-brand" href="{% url 'reviews:main' %}"><img class="ms-1" src="{% static 'images/movie.png'%}" style="width: 50px; height:50px;" alt=""></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">HOME</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'reviews:create' %}">REVIEWS</a>
-            </li>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 mt-3">
+            {% block active %}
+              <li class="nav-item">
+                <a class="nav-link navi" aria-current="page" href="{% url 'reviews:index' %}">HOME</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link navi" href="{% url 'reviews:create' %}">REVIEWS</a>
+              </li>
+            {% endblock active %}
           </ul>
         </div>
         {% if request.user.is_authenticated %}
           <div class="d-flex">
-            <a class="nav-link active" href="{% url 'accounts:logout' %}">{{ user.username}}
-              LOGOUT
+            <div class="">
+              {% if user.image %}
+                {{user.image.url }}
+              {% else %}
+                <img src="https://dummyimage.com/30/dedbdc/8084c2" class="mt-1 me-1 rounded-circle">
+              {% endif %}
+            </div>
+            <a class="nav-link navi" href="{% url 'accounts:logout' %}">
+              <img src="{% static 'images/logout.png' %}" style="width:25px; height:25px;" alt="" class="mx-3">
             </a>
-            /
-            <a class="nav-link active" href="{% url 'accounts:index' %}">MYPAGE</a>
+            <br>
+            <a class="nav-link navi" href="{% url 'accounts:detail' user.pk %}">
+              <img src="{% static '/images/my_page.png' %}" style="width:25px; height:25px;" alt="">
+            </a>
           </div>
         {% else %}
-          <a class="nav-link active" href="{% url 'accounts:login' %}">LOGIN</a>
-          |
-          <a class="nav-link active" href="{% url 'accounts:signup'%}">SIGNUP<a>
+          <div>
+            <a class="nav-link navi" href="{% url 'accounts:login' %}">LOGIN /
+            </a>
+            <a class="nav-link navi" href="{% url 'accounts:signup'%}">SIGNUP<a></div>
             {% endif %}
             <ul>
-              <a class="text-dark" style="submit" href="#">
+              <a id="search" class="text-dark" href="#">
+                <!-- 돋보기 -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewbox="0 0 16 16">
                   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                 </svg>
               </a>
+              <div class="search-hidden" id="search-field">
+                <form action="" method="POST" class="d-flex">
+                  <input type="text" class="form-control" placeholder="검색어를 입력하세요.">
+                  <input type="submit" class="ms-2 btn btn-light" value="검색">
+                </form>
+              </div>
             </ul>
           </div>
         </nav>
         {% block content %}{% endblock content %}
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+        <script>
+          const search = document.querySelector('#search')
+          search.addEventListener('click', function() {
+            const search_field = document.querySelector("#search-field")
+            search_field.classList.toggle('search-active')
+          })
+        </script>
       </body>
 
     </html>
