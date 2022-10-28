@@ -38,13 +38,13 @@
           <div class="d-flex">
             <div class="">
               {% if user.image %}
-                {{user.image.url }}
+                <img src="{{ user.image.url }}" alt="" style="width:30px; height:30px;" class="rounded-circle">
               {% else %}
                 <img src="https://dummyimage.com/30/dedbdc/8084c2" class="mt-1 me-1 rounded-circle">
               {% endif %}
             </div>
             <a class="nav-link navi" href="{% url 'accounts:logout' %}">
-              <img src="{% static 'images/logout.png' %}" style="width:25px; height:25px;" alt="" class="mx-3">
+              <img src="{% static 'images/logout.png' %}" style="width:25px; height:25px;" alt="" class="mx-5">
             </a>
             <br>
             <a class="nav-link navi" href="{% url 'accounts:detail' user.pk %}">
